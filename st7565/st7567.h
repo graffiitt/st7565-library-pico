@@ -9,6 +9,7 @@
 #define ST7567_H_
 
 #include <string.h>
+#include <stdlib.h>
 #include "pico/stdlib.h"
 #include "spi.h"
 #include "fonts.h"
@@ -72,7 +73,9 @@
 void st7567_Init();
 void st7567_Test();
 
-void st7567_WriteNumber(uint8_t x, uint8_t y, const char ch);
+void st7567_DrawHLine(uint8_t y, uint8_t color);
+void st7567_DrawWLine(uint8_t x, uint8_t color);
+void st7567_DrawLine(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color);
 void st7567_WriteString(uint8_t x, uint8_t y, const char *str, FontDef font);
 void st7567_WriteChar(uint8_t x, uint8_t y, char ch, FontDef font);
 void st7567_Clear();

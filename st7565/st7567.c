@@ -50,53 +50,65 @@ void st7567_Test()
 	st7567_WriteString(0, 0, "12:34.6", Font_16x26);
 	st7567_WriteString(0, 26, "12:34.6", Font_11x18);
 	st7567_WriteString(0, 26 + 18, "12:34.6", Font_7x10);
+	st7567_DrawWLine(120, BLACK);
+	st7567_DrawHLine(60, BLACK);
+	st7567_DrawLine(10, 58, 50, 50, BLACK);
 }
 
-void st7567_SetPixelBuffer(uint8_t x, uint8_t y, uint8_t color)
+void st7567_DrawHLine(uint8_t y, uint8_t color)
 {
-	if ((x >= LCDWIDTH) || (y >= LCDHEIGHT))
-		return;
-
-	// x is which column
-	if (color)
-		lcd_buffer[x + (y / 8) * 128] |= (1 << (y % 8));
-	else
-		lcd_buffer[x + (y / 8) * 128] &= ~(1 << (y % 8));
-}
-
-void st7567_UpdateScreen()
-{
-	sendCommand(CMD_SET_DISP_START_LINE);
-	for (uint8_t bank = 0; bank < LCDNUMPAGES; bank++)
+	for (uint8_t x = 0; x < LCDWIDTH; x++)
 	{
-		sendCommand(CMD_SET_PAGE + bank);
-		sendCommand(CMD_SET_COLUMN_UPPER);
-		sendCommand(CMD_SET_COLUMN_LOWER);
-		for (uint8_t i = 0; i < 128; i++)
+		if (color)
+			lcd_buffer[x + (y / 8) * 128] |= (1 << (y % 8));
+		else
+			lcd_buffer[x + (y / 8) * 128] &= ~(1 << (y % 8));
+	}
+}
+
+void st7567_DrawWLine(uint8_t x, uint8_t color)
+{
+	for (uint8_t y = 0; y < LCDNUMPAGES; y++)
+	{
+		if (color)
 		{
-			sendDataSingle(lcd_buffer[128 * bank + i]);
+			lcd_buffer[x + y * 128] = 255;
+		}
+		else
+		{
+			lcd_buffer[x + y * 128] = 0;
 		}
 	}
 }
 
-void st7567_WriteCharBuf(uint8_t x, uint8_t y, char ch, FontDef font)
+void st7567_DrawLine(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color)
 {
-	uint32_t b;
-	for (uint8_t i = 0; i < font.height; i++)
+	const int8_t deltaX = abs(x2 - x1);
+	const int8_t deltaY = abs(y2 - y1);
+	const int8_t signX = x1 < x2 ? 1 : -1;
+	const int8_t signY = y1 < y2 ? 1 : -1;
+
+	int8_t error = deltaX - deltaY;
+
+	st7567_SetPixelBuffer(x2, y2, color);
+
+	while (x1 != x2 || y1 != y2)
 	{
-		b = font.data[(ch - 32) * font.height + i];
-		for (uint8_t j = 0; j < font.width; j++)
+		st7567_SetPixelBuffer(x1, y1, color);
+		const int8_t error2 = error * 2;
+
+		if (error2 > -deltaY)
 		{
-			if ((b << j) & 0x8000)
-			{
-				st7567_SetPixelBuffer(x + j, y + i, BLACK);
-			}
-			else
-			{
-				st7567_SetPixelBuffer(x + j, y + i, WHITE);
-			}
+			error -= deltaY;
+			x1 += signX;
+		}
+		if (error2 < deltaX)
+		{
+			error += deltaX;
+			y1 += signY;
 		}
 	}
+	st7567_UpdateScreen();
 }
 
 void st7567_WriteString(uint8_t x, uint8_t y, const char *str, FontDef font)
@@ -131,6 +143,53 @@ void st7567_Clear()
 {
 	memset(lcd_buffer, 0, 1024);
 	st7567_UpdateScreen();
+}
+
+void st7567_SetPixelBuffer(uint8_t x, uint8_t y, uint8_t color)
+{
+	if ((x >= LCDWIDTH) || (y >= LCDHEIGHT))
+		return;
+
+	// x is which column
+	if (color)
+		lcd_buffer[x + (y / 8) * 128] |= (1 << (y % 8));
+	else
+		lcd_buffer[x + (y / 8) * 128] &= ~(1 << (y % 8));
+}
+
+void st7567_WriteCharBuf(uint8_t x, uint8_t y, char ch, FontDef font)
+{
+	uint32_t b;
+	for (uint8_t i = 0; i < font.height; i++)
+	{
+		b = font.data[(ch - 32) * font.height + i];
+		for (uint8_t j = 0; j < font.width; j++)
+		{
+			if ((b << j) & 0x8000)
+			{
+				st7567_SetPixelBuffer(x + j, y + i, BLACK);
+			}
+			else
+			{
+				st7567_SetPixelBuffer(x + j, y + i, WHITE);
+			}
+		}
+	}
+}
+
+void st7567_UpdateScreen()
+{
+	sendCommand(CMD_SET_DISP_START_LINE);
+	for (uint8_t bank = 0; bank < LCDNUMPAGES; bank++)
+	{
+		sendCommand(CMD_SET_PAGE + bank);
+		sendCommand(CMD_SET_COLUMN_UPPER);
+		sendCommand(CMD_SET_COLUMN_LOWER);
+		for (uint8_t i = 0; i < 128; i++)
+		{
+			sendDataSingle(lcd_buffer[128 * bank + i]);
+		}
+	}
 }
 
 void sendData(uint8_t *data, uint16_t size)
