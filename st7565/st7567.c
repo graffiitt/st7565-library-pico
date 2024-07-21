@@ -47,12 +47,21 @@ void st7567_Init()
 
 void st7567_Test()
 {
-	st7567_WriteString(0, 0, "12:34.6", Font_16x26);
-	st7567_WriteString(0, 26, "12:34.6", Font_11x18);
-	st7567_WriteString(0, 26 + 18, "12:34.6", Font_7x10);
-	st7567_DrawWLine(120, BLACK);
-	st7567_DrawHLine(60, BLACK);
-	st7567_DrawLine(10, 58, 50, 50, BLACK);
+	st7567_WriteString(0, 0, "123%", Font_7x10);
+	st7567_WriteString(0, 40, "123", Font_16x26); // 3 ячейка
+	st7567_WriteString(0, 16, "12", Font_11x18);
+	
+	// отрисовка линий раскладки на 4 ячейки
+	st7567_DrawHLine(10, BLACK); 
+	st7567_DrawLine(63, 10, 63, 63, BLACK);
+	st7567_DrawHLine(37, BLACK);
+	st7567_DrawHLine(63, BLACK);
+
+	st7567_UpdateScreen();
+	// st7567_WriteString(0, 26 + 18, "12:34.6", Font_7x10);
+	// st7567_DrawWLine(120, BLACK);
+	// st7567_DrawHLine(60, BLACK);
+	// st7567_DrawLine(10, 58, 50, 50, BLACK);
 }
 
 void st7567_DrawHLine(uint8_t y, uint8_t color)
@@ -108,7 +117,7 @@ void st7567_DrawLine(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t col
 			y1 += signY;
 		}
 	}
-	st7567_UpdateScreen();
+	// st7567_UpdateScreen();
 }
 
 void st7567_WriteString(uint8_t x, uint8_t y, const char *str, FontDef font)
@@ -130,19 +139,23 @@ void st7567_WriteString(uint8_t x, uint8_t y, const char *str, FontDef font)
 		x += font.width;
 		str++;
 	}
-	st7567_UpdateScreen();
+	// st7567_UpdateScreen();
 }
 
 void st7567_WriteChar(uint8_t x, uint8_t y, char ch, FontDef font)
 {
 	st7567_WriteCharBuf(x, y, ch, font);
-	st7567_UpdateScreen();
+	// st7567_UpdateScreen();
+}
+
+void st7567_PrintWithDelimetr(uint8_t num1, uint8_t num2, uint8_t widthDelim)
+{
 }
 
 void st7567_Clear()
 {
 	memset(lcd_buffer, 0, 1024);
-	st7567_UpdateScreen();
+	// st7567_UpdateScreen();
 }
 
 void st7567_SetPixelBuffer(uint8_t x, uint8_t y, uint8_t color)

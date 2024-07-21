@@ -12,10 +12,8 @@ void spiInit()
 	gpio_set_function(PICO_SPI_RX_PIN, GPIO_FUNC_SPI);
 	gpio_set_function(PICO_SPI_SCK_PIN, GPIO_FUNC_SPI);
 	gpio_set_function(PICO_SPI_TX_PIN, GPIO_FUNC_SPI);
-	// Make the SPI pins available to picotool
-	bi_decl(bi_3pins_with_func(PICO_SPI_RX_PIN, PICO_SPI_TX_PIN, PICO_SPI_SCK_PIN, GPIO_FUNC_SPI));
 
-	// Chip select is active-low, so we'll initialise it to a driven-high state
+	bi_decl(bi_3pins_with_func(PICO_SPI_RX_PIN, PICO_SPI_TX_PIN, PICO_SPI_SCK_PIN, GPIO_FUNC_SPI));
 }
 
 void spiWriteArr(uint8_t *data, uint16_t size)

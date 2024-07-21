@@ -78,13 +78,15 @@ void st7567_DrawWLine(uint8_t x, uint8_t color);
 void st7567_DrawLine(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color);
 void st7567_WriteString(uint8_t x, uint8_t y, const char *str, FontDef font);
 void st7567_WriteChar(uint8_t x, uint8_t y, char ch, FontDef font);
-void st7567_Clear();
-void st7567_SetPixelBuffer(uint8_t x, uint8_t y, uint8_t color);
+void st7567_PrintWithDelimetr(uint8_t num1, uint8_t num2, uint8_t widthDelim);
 
-static void st7567_WriteCharBuf(uint8_t x, uint8_t y, char ch, FontDef font);
-static void st7567_UpdateScreen();
-static void sendData(uint8_t *data, uint16_t size);
-static void sendDataSingle(uint8_t data);
-static void sendCommand(uint8_t cmd);
+void st7567_Clear();
+
+void st7567_SetPixelBuffer(uint8_t x, uint8_t y, uint8_t color);
+void st7567_WriteCharBuf(uint8_t x, uint8_t y, char ch, FontDef font);
+void st7567_UpdateScreen();
+void sendData(uint8_t *data, uint16_t size);
+void sendDataSingle(uint8_t data);
+void sendCommand(uint8_t cmd);
 
 #endif /* ST7567_H_ */

@@ -11,7 +11,6 @@
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
 #include "pico/binary_info.h"
-#include "pico/stdlib.h"
 
 #define PICO_SPI 0         // The pines are in the SPI1 area, so I don't know if I have to put here 0 or 1
 #define PICO_SPI_SCK_PIN 2 // GP10 -> Pin #13 RP2040
