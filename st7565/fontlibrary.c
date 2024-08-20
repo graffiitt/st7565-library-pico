@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include "fontlibrary.h"
 
-static uint8_t const  veranda_9_Bitmaps[855] = 
+static const uint8_t const  veranda_9_Bitmaps[855] = 
 {
     // ASCII: 32, char width: 3
     0x00,  // ---.....
@@ -64,13 +64,13 @@ static uint8_t const  veranda_9_Bitmaps[855] =
     0x10,  // ---O---.
 
     // ASCII: 37, char width: 11
-    0x31,  // --OO---O
-    0x4a,  // -O--O-O-
-    0x4a,  // -O--O-O-
-    0x35,  // --OO-O-O
-    0x0a,  // ----O-O-
-    0x0a,  // ----O-O-
-    0x11,  // ---O---O
+    0x61,  // -OO----O
+    0x92,  // O--O--O-
+    0x94,  // O--O-O--
+    0x7E,  // -OOOOOO-
+    0x29,  // --O-O--O
+    0x49,  // -O--O--O
+    0x86,  // O----OO-
     0x00,  // --------
     0x00,  // --------
 
@@ -119,11 +119,11 @@ static uint8_t const  veranda_9_Bitmaps[855] =
     0x80,  // O---....
 
     // ASCII: 42, char width: 7
+    0x10,  // ---0---.
+    0x54,  // -O-O-O-.
     0x38,  // --OOO--.
     0x54,  // -O-O-O-.
     0x10,  // ---O---.
-    0x00,  // -------.
-    0x00,  // -------.
     0x00,  // -------.
     0x00,  // -------.
     0x00,  // -------.
@@ -658,7 +658,7 @@ static uint8_t const  veranda_9_Bitmaps[855] =
     0x00,  // -------.
 
     // ASCII: 91, char width: 4
-    0x40,  // -O--....
+    0x60,  // -OO-....
     0x40,  // -O--....
     0x40,  // -O--....
     0x40,  // -O--....
@@ -680,7 +680,7 @@ static uint8_t const  veranda_9_Bitmaps[855] =
     0x00,  // ----....
 
     // ASCII: 93, char width: 4
-    0x20,  // --O-....
+    0x60,  // -OO-....
     0x20,  // --O-....
     0x20,  // --O-....
     0x20,  // --O-....
@@ -1054,7 +1054,7 @@ static uint8_t const  veranda_9_Bitmaps[855] =
     0x00,  // -------.
 };
 
-static uint8_t const  veranda_9_Widths[95] = 
+static const uint8_t const  veranda_9_Widths[95] = 
 {
      3,  5,  5,  7,  7, 11,  7,  3, 
      4,  4,  7,  7,  3,  5,  3,  4, 
@@ -1081,7 +1081,7 @@ fontStyle_t FontStyle_veranda_9 =
     veranda_9_Bitmaps
 };
 
-static uint8_t const  veranda_ru_9_Bitmaps[576] = 
+static const uint8_t const  veranda_ru_9_Bitmaps[576] = 
 {
     // ASCII: 192, char width: 8
     0x18,  // ---OO---
@@ -1788,7 +1788,7 @@ static uint8_t const  veranda_ru_9_Bitmaps[576] =
     0x00,  // ------..
 };
 
-static uint8_t const  veranda_ru_9_Widths[64] = 
+static const uint8_t const  veranda_ru_9_Widths[64] = 
 {
      8,  8,  8,  8,  8,  8, 10,  8, 
      7,  7,  7,  7,  5,  5,  5,  5, 
@@ -1811,7 +1811,7 @@ fontStyle_t FontStyle_veranda_ru_9 =
     veranda_ru_9_Bitmaps
 };
 
-static uint8_t const  veranda_18_Bitmaps[6840] = 
+static const uint8_t const  veranda_18_Bitmaps[6840] = 
 {
     // ASCII: 32, char width: 6
     0x00, 0x00, 0x00, 0x00,  // ------..........................
@@ -3714,7 +3714,7 @@ static uint8_t const  veranda_18_Bitmaps[6840] =
     0x00, 0x00, 0x00, 0x00,  // ---------------.................
 };
 
-static uint8_t const  veranda_18_Widths[95] = 
+static const uint8_t const  veranda_18_Widths[95] = 
 {
      6,  7,  8, 15, 11, 19, 13,  5, 
      8,  8, 11, 15,  7,  8,  7,  8, 
@@ -3741,7 +3741,7 @@ fontStyle_t FontStyle_veranda_18 =
     veranda_18_Bitmaps
 };
 
-static uint8_t const  veranda_26_Bitmaps[1144] = 
+static const uint8_t const  veranda_26_Bitmaps[1144] = 
 {
     // ASCII: 48, char width: 17
     0x03, 0xe0, 0x00, 0x00,  // ------OOOOO------...............
@@ -4052,7 +4052,7 @@ static uint8_t const  veranda_26_Bitmaps[1144] =
     0x00, 0x00, 0x00, 0x00,  // ------------....................
 };
 
-static uint8_t const  veranda_26_Widths[11] = 
+static const uint8_t const  veranda_26_Widths[11] = 
 {
     17, 17, 17, 17, 17, 17, 17, 17, 
     17, 17, 12, 
