@@ -13,7 +13,6 @@ foreach(source ${HFILE})
     message("  - " ${source})
 endforeach(source)
  
-
 add_library(${TARGET_NAME} STATIC
 ${CPPFILE}
 ${HFILE}
