@@ -135,14 +135,14 @@ void st7567_WriteStringBack(uint8_t x, uint8_t y, const char *str, fontStyle_t f
 	int8_t count = 0;
 	while (*(str + count))
 	{
-		count++;
 		x -= font.GlyphWidth[(int)*(str + count) - font.FirstAsciiCode];
+		count++;
 	}
 
-	for (; count >= 0; count--)
+	while (*str)
 	{
-		st7567_WriteChar(x, y, *(str), font);
-		x += font.GlyphWidth[(int)*(str)-font.FirstAsciiCode];
+		st7567_WriteChar(x, y, *str, font);
+		x += font.GlyphWidth[(int)*str - font.FirstAsciiCode];
 		str++;
 	}
 }
