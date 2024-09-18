@@ -72,7 +72,7 @@
 
 void st7567_Init();
 void st7567_Test();
-void st7565_backlight(bool state);
+void st7567_Backlight(bool state);
 
 void st7567_DrawHLine(uint8_t y, uint8_t color);
 void st7567_DrawWLine(uint8_t x, uint8_t color);

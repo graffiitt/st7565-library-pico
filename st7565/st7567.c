@@ -19,7 +19,7 @@ void st7567_Init()
 	gpio_set_dir(ST7567A_DC_Pin, GPIO_OUT);
 	gpio_init(ST7567_LED_Pin);
 	gpio_set_dir(ST7567_LED_Pin, GPIO_OUT);
-	st7565_backlight(true);
+
 	gpio_put(ST7567A_RST_Pin, 0);
 	sleep_ms(50);
 	gpio_put(ST7567A_RST_Pin, 1);
@@ -42,6 +42,7 @@ void st7567_Init()
 	sendCommand(0xA4);
 	sendCommand(0xAF);
 
+	st7567_Backlight(true);
 	st7567_Clear();
 }
 
@@ -60,7 +61,7 @@ void st7567_Test()
 	st7567_UpdateScreen();
 }
 
-void st7565_backlight(bool state)
+void st7567_Backlight(bool state)
 {
 	state ? gpio_put(ST7567_LED_Pin, 0) : gpio_put(ST7567_LED_Pin, 1);
 }
